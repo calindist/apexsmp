@@ -240,15 +240,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 10px 0;
+            margin: 14px 0;
             flex: 1;
         }
         .store-art {
-            max-width: 310px;
-            max-height: 310px;
-            width: 88%;
+            width: auto;
             height: auto;
+            max-width: 215px;
+            max-height: 215px;
             object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+            filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.35));
             transition: transform 0.3s ease;
         }
         .bento-card.store-tall:hover .store-art {

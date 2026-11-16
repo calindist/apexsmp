@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexSMP | Server Rules</title>
+    <link rel="icon" type="image/png" href="https://cdn.craftingstore.net/rPPmDHlLQ1/a5bd12907eca98c006d6e821e2c1163b/pure8rccxzledla8lbgk.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #181a26;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-wallpaper {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, rgba(24, 26, 38, 0.52) 0%, rgba(24, 26, 38, 0.86) 55%, #181a26 100%),
+                url('https://i.postimg.cc/tYBrw1Hp/background.png') center -100px / cover no-repeat;
+        }
+
+        nav, .hero-header, .main-container, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-mini-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            padding: 18px 20px 6px;
+        }
+        .top-mini-nav a, .top-mini-nav button {
+            background: none;
+            border: none;
+            color: #cfd4e6;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .top-mini-nav a:hover, .top-mini-nav button:hover, .top-mini-nav a.active {
+            color: #ffffff;
+        }
+
+        .hero-header {
+            width: 100%;
+            margin: 6px auto 24px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-center-logo {
+            display: block;
+            transition: transform 0.25s ease;
+        }
+        .hero-center-logo:hover {
+            transform: scale(1.05);
+        }
+        .hero-center-logo img {
+            height: 112px;
+            width: auto;
+            display: block;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto 44px;
+            padding: 0 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .page-banner {
+            display: flex;
+            align-items: stretch;
+            background-color: #202333;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
+            min-height: 86px;
+        }
+        @media (max-width: 760px) {
+            .page-banner {
+                flex-direction: column;
+            }
+        }
+        .banner-info {
+            flex: 1;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .banner-badge-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #f59e0b 0%, #b45309 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+        .banner-info h1 {
+            font-size: 20px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+        .banner-info p {
+            font-size: 14px;
+            color: #9ba1b8;
+        }
+
+        .banner-back-seg {
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px 36px 16px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            clip-path: polygon(22px 0, 100% 0, 100% 100%, 0 100%);
+            min-width: 230px;
+            transition: filter 0.2s ease;
+        }
+        .banner-back-seg:hover {
+            filter: brightness(1.1);
+        }
+        @media (max-width: 760px) {
+            .banner-back-seg {
+                clip-path: none;
+                padding: 14px 20px;
+            }
+        }
+        .seg-small {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #fef3c7;
+        }
+        .seg-big {
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 0.4px;
+        }
+
+        .rules-controls {
+            background-color: #202333;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+        }
+        .filter-tabs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .filter-tab {
+            background-color: #181a26;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: #9ba1b8;
+            padding: 9px 16px;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-tab:hover {
+            color: #ffffff;
+            background-color: #141620;
+        }
+        .filter-tab.active {
+            background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+            color: #ffffff;
+            border-color: transparent;
+        }
+        .filter-tab.discord-tab.active {
+            background: linear-gradient(135deg, #5865F2 0%, #4338ca 100%);
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 240px;
+            max-width: 360px;
+        }
+        @media (max-width: 680px) {
+            .search-box {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+        .search-box input {
+            width: 100%;
+            background-color: #181a26;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 9px;
+            padding: 10px 14px 10px 38px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 13.5px;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .search-box input::placeholder {
+            color: #6b7280;
+        }
+        .search-box input:focus {
+            border-color: #f59e0b;
+        }
+        .search-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            align-items: start;
+        }
+        .rules-grid.single-col {
+            grid-template-columns: 1fr;
+        }
+        @media (max-width: 860px) {
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .rules-panel {
+            background-color: #202333;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 26px 28px;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .rules-panel.hidden {
+            display: none;
+        }
+
+        .panel-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .panel-head h2 {
+            font-size: 20px;
+            font-weight: 900;
+            color: #ffffff;
+        }
+        .panel-pill {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            padding: 5px 12px;
+            border-radius: 50px;
+            background-color: rgba(245, 158, 11, 0.16);
+            color: #fbbf24;
+        }
+        .panel-pill.discord {
+            background-color: rgba(88, 101, 242, 0.2);
+            color: #818cf8;
+        }
+
+        .rule-item {
+            background-color: #181a26;
+            border-radius: 10px;
+            padding: 13px 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            transition: background-color 0.15s ease;
+        }
+        .rule-item.hidden {
+            display: none;
+        }
+        .rule-item:hover {
+            background-color: #141620;
+        }
+        .rule-num {
+            min-width: 27px;
+            height: 27px;
+            border-radius: 7px;
+            background-color: rgba(245, 158, 11, 0.18);
+            color: #fbbf24;
+            font-size: 12px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .rules-panel.discord-panel .rule-num {
+            background-color: rgba(88, 101, 242, 0.22);
+            color: #818cf8;
+        }
+        .rule-content h4 {
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+        .rule-content p {
+            font-size: 13px;
+            color: #9ba1b8;
+            line-height: 1.4;
+        }
+
+        .no-results {
+            display: none;
+            background-color: #202333;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 36px 24px;
+            text-align: center;
+            color: #9ba1b8;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .no-results.show {
+            display: block;
+        }
+
+        .tos-bar {
+            background-color: #202333;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 18px 26px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+        }
+        .tos-info h4 {
+            font-size: 15px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+        .tos-info p {
+            font-size: 13.5px;
+            color: #9ba1b8;
+        }
+        .tos-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .tos-btn {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 9px;
+            font-size: 13.5px;
+            font-weight: 800;
+            transition: background-color 0.2s ease;
+        }
+        .tos-btn:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .appeal-btn {
+            background-color: #5865F2;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 9px;
+            font-size: 13.5px;
+            font-weight: 800;
+            transition: filter 0.2s ease;
+        }
+        .appeal-btn:hover {
+            filter: brightness(1.12);
+        }
+
+        /* MODAL HOW TO JOIN */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background-color: rgba(11, 13, 20, 0.8);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .modal-backdrop.open { display: flex; }
+        .modal-box {
+            background-color: #202333;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            max-width: 580px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 26px 28px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+            animation: popIn 0.2s ease;
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.95) translateY(8px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .modal-title { font-size: 21px; font-weight: 900; color: #ffffff; }
+        .modal-close {
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            color: #cfd4e6;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            font-size: 19px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .modal-close:hover { background-color: #ef4444; color: #ffffff; }
+        .join-card {
+            background-color: #181a26;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            border-left: 4px solid #00b4f0;
+        }
+        .join-card.bedrock { border-left-color: #f59e0b; }
+        .join-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .join-label {
+            font-size: 13px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #00b4f0;
+        }
+        .join-card.bedrock .join-label { color: #fbbf24; }
+        .copy-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .mini-copy-btn {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 7px;
+            font-size: 11.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .mini-copy-btn:hover { background-color: #0096c7; }
+        .join-steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .join-steps li {
+            font-size: 13.5px;
+            color: #cfd4e6;
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.45;
+        }
+        .join-steps li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #00b4f0;
+            font-weight: 900;
+        }
+        .join-card.bedrock .join-steps li::before { color: #fbbf24; }
+        .join-steps strong { color: #ffffff; }
+        .join-support-note {
+            background-color: rgba(88, 101, 242, 0.12);
+            border: 1px solid rgba(88, 101, 242, 0.28);
+            border-radius: 11px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .join-support-note p {
+            font-size: 12.5px;
+            color: #cfd4e6;
+            flex: 1;
+            min-width: 220px;
+        }
+        .join-discord-btn {
+            background-color: #5865F2;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 800;
+            white-space: nowrap;
+            transition: filter 0.2s ease;
+        }
+        .join-discord-btn:hover { filter: brightness(1.12); }
+
+        footer {
+            width: 100%;
+            padding: 16px 28px 28px;
+            text-align: center;
+            color: #7c8299;
+            font-size: 12px;
+        }
+        footer strong {
+            color: #ffffff;
+            font-size: 13px;
+            display: block;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-wallpaper"></div>
+
+    <nav class="top-mini-nav">
+        <a href="https://storeapex.craftingstore.net/" target="_blank" rel="noopener noreferrer">Store</a>
+        <a href="rules.html" class="active">Rules</a>
+        <a href="vote.html">Vote</a>
+        <button onclick="openJoinModal()">How to Join</button>
+    </nav>
+
+    <header class="hero-header">
+        <a href="index.html" class="hero-center-logo" title="Back to Home">
+            <img src="https://cdn.craftingstore.net/rPPmDHlLQ1/a5bd12907eca98c006d6e821e2c1163b/pure8rccxzledla8lbgk.png" alt="ApexSMP">
+        </a>
+    </header>
+
+    <main class="main-container">
+
+        <div class="page-banner">
+            <div class="banner-info">
+                <div class="banner-badge-icon">!</div>
+                <div>
+                    <h1>Server Rules &amp; Policies</h1>
+                    <p>Follow these guidelines to keep ApexSMP fair, fun, and safe for everyone.</p>
+                </div>
+            </div>
+
+            <a href="index.html" class="banner-back-seg">
+                <span class="seg-small">Return to Hub</span>
+                <span class="seg-big">← BACK HOME</span>
+            </a>
+        </div>
+
+        <div class="rules-controls">
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="setCategory('all', this)">All Rules (35)</button>
+                <button class="filter-tab" onclick="setCategory('minecraft', this)">Minecraft Rules (20)</button>
+                <button class="filter-tab discord-tab" onclick="setCategory('discord', this)">Discord Rules (15)</button>
+            </div>
+
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="rule-search" placeholder="Search rules (e.g. xray, alt, ticket)..." oninput="filterRules()">
+            </div>
+        </div>
+
+        <section class="rules-grid" id="rules-grid">
+
+            <div class="rules-panel" id="panel-minecraft">
+                <div class="panel-head">
+                    <h2>Minecraft Rules</h2>
+                    <span class="panel-pill">In-Game</span>
+                </div>
+
+                <div class="rule-item"><span class="rule-num">1</span><div class="rule-content"><h4>No hacked clients</h4><p>Any modified client granting unfair gameplay advantages is strictly prohibited.</p></div></div>
+                <div class="rule-item"><span class="rule-num">2</span><div class="rule-content"><h4>No movement or inventory mods</h4><p>Mods that automate movement, sorting, or inventory actions are not allowed.</p></div></div>
+                <div class="rule-item"><span class="rule-num">3</span><div class="rule-content"><h4>No health indicators or radar</h4><p>Displaying player health bars, entity radars, or cave maps is forbidden.</p></div></div>
+                <div class="rule-item"><span class="rule-num">4</span><div class="rule-content"><h4>No alt grinding</h4><p>Using alternate accounts to farm resources, rewards, or bypass limits is disallowed.</p></div></div>
+                <div class="rule-item"><span class="rule-num">5</span><div class="rule-content"><h4>No freecam</h4><p>Detaching your camera to scout bases, caves, or hidden areas is prohibited.</p></div></div>
+                <div class="rule-item"><span class="rule-num">6</span><div class="rule-content"><h4>No auto place or sell macros</h4><p>Automated block placement, auto-sell scripts, or AFK clickers are forbidden.</p></div></div>
+                <div class="rule-item"><span class="rule-num">7</span><div class="rule-content"><h4>No harmful macros/scripts</h4><p>Any external script or macro designed to automate actions or disrupt gameplay is banned.</p></div></div>
+                <div class="rule-item"><span class="rule-num">8</span><div class="rule-content"><h4>No abusing bugs or duping</h4><p>Exploiting server glitches or item duplication bugs results in an immediate ban.</p></div></div>
+                <div class="rule-item"><span class="rule-num">9</span><div class="rule-content"><h4>No IRL or cross-server trading</h4><p>Trading in-game items or currency for real money or items on other servers is forbidden.</p></div></div>
+                <div class="rule-item"><span class="rule-num">10</span><div class="rule-content"><h4>No seed exploitation</h4><p>Cracking or using the world seed to locate structures, biomes, or ores is not allowed.</p></div></div>
+                <div class="rule-item"><span class="rule-num">11</span><div class="rule-content"><h4>No staff impersonation</h4><p>Pretending to be a staff member or claiming staff authority is strictly prohibited.</p></div></div>
+                <div class="rule-item"><span class="rule-num">12</span><div class="rule-content"><h4>No punishment evasion</h4><p>Using alt accounts or VPNs to bypass an active mute or ban will extend punishments.</p></div></div>
+                <div class="rule-item"><span class="rule-num">13</span><div class="rule-content"><h4>No lying to staff</h4><p>Deceiving staff members during investigations or reports will result in harsher penalties.</p></div></div>
+                <div class="rule-item"><span class="rule-num">14</span><div class="rule-content"><h4>No spamming or rioting</h4><p>Flooding chat, repeating messages, or inciting chat riots is not tolerated.</p></div></div>
+                <div class="rule-item"><span class="rule-num">15</span><div class="rule-content"><h4>No harassment or abuse</h4><p>Targeted harassment, bullying, or toxic behavior toward players is forbidden.</p></div></div>
+                <div class="rule-item"><span class="rule-num">16</span><div class="rule-content"><h4>No sharing personal info</h4><p>Doxxing or leaking private personal information of any player is strictly banned.</p></div></div>
+                <div class="rule-item"><span class="rule-num">17</span><div class="rule-content"><h4>No ads or promotions</h4><p>Advertising other Minecraft servers, websites, or unrelated links is prohibited.</p></div></div>
+                <div class="rule-item"><span class="rule-num">18</span><div class="rule-content"><h4>No hate speech, racism, or discrimination</h4><p>Slurs, hate speech, or discrimination of any kind will result in immediate action.</p></div></div>
+                <div class="rule-item"><span class="rule-num">19</span><div class="rule-content"><h4>No death threats or encouraging suicide</h4><p>Zero tolerance for threats of real-life harm or encouraging self-harm.</p></div></div>
+                <div class="rule-item"><span class="rule-num">20</span><div class="rule-content"><h4>No bypassing event rules or restrictions</h4><p>Follow all rules and restrictions set by staff during server events.</p></div></div>
+            </div>
+
+            <div class="rules-panel discord-panel" id="panel-discord">
+                <div class="panel-head">
+                    <h2>Discord Rules</h2>
+                    <span class="panel-pill discord">Community</span>
+                </div>
+
+                <div class="rule-item"><span class="rule-num">1</span><div class="rule-content"><h4>Be respectful to all members</h4><p>Treat every community member with basic courtesy and respect.</p></div></div>
+                <div class="rule-item"><span class="rule-num">2</span><div class="rule-content"><h4>No hate speech, racism, or discrimination</h4><p>Discriminatory remarks, slurs, or hate speech are strictly prohibited.</p></div></div>
+                <div class="rule-item"><span class="rule-num">3</span><div class="rule-content"><h4>Keep conversations and content appropriate</h4><p>Maintain civil, constructive, and community-friendly discussions.</p></div></div>
+                <div class="rule-item"><span class="rule-num">4</span><div class="rule-content"><h4>No spamming or excessive self-promotion</h4><p>Avoid message flooding, ping spam, or repeated self-promotion.</p></div></div>
+                <div class="rule-item"><span class="rule-num">5</span><div class="rule-content"><h4>Do not share personal information</h4><p>Never share private details belonging to yourself or other members.</p></div></div>
+                <div class="rule-item"><span class="rule-num">6</span><div class="rule-content"><h4>Respect the staff's decisions and instructions</h4><p>Follow moderator guidance and avoid arguing publicly over staff actions.</p></div></div>
+                <div class="rule-item"><span class="rule-num">7</span><div class="rule-content"><h4>No NSFW content in any channel</h4><p>Adult, explicit, or graphic content is strictly forbidden everywhere.</p></div></div>
+                <div class="rule-item"><span class="rule-num">8</span><div class="rule-content"><h4>Do not use excessive caps or emojis</h4><p>Keep messages readable without overusing capital letters or emoji walls.</p></div></div>
+                <div class="rule-item"><span class="rule-num">9</span><div class="rule-content"><h4>No harassment or bullying</h4><p>Targeted insults, witch-hunting, or bullying will not be tolerated.</p></div></div>
+                <div class="rule-item"><span class="rule-num">10</span><div class="rule-content"><h4>Use the appropriate channels for discussions</h4><p>Keep topics in their designated text and support channels.</p></div></div>
+                <div class="rule-item"><span class="rule-num">11</span><div class="rule-content"><h4>No Self Advertisement, DM Advertising or Alt accounts</h4><p>Unsolicited DM ads, server invites, or alternate Discord accounts are forbidden.</p></div></div>
+                <div class="rule-item"><span class="rule-num">12</span><div class="rule-content"><h4>Please do not use any language other than English</h4><p>Communicate in English in public channels so staff can moderate effectively.</p></div></div>
+                <div class="rule-item"><span class="rule-num">13</span><div class="rule-content"><h4>No misuse of tickets, forums, or other Discord features</h4><p>Do not open troll tickets or abuse server threads and bot commands.</p></div></div>
+                <div class="rule-item"><span class="rule-num">14</span><div class="rule-content"><h4>No interference with staff investigations</h4><p>Do not obstruct, mislead, or interfere with ongoing staff reviews.</p></div></div>
+                <div class="rule-item"><span class="rule-num">15</span><div class="rule-content"><h4>No appeals outside the appropriate ticket system</h4><p>Submit punishment appeals exclusively through the official Discord ticket system.</p></div></div>
+            </div>
+
+        </section>
+
+        <div class="no-results" id="no-results">No rules matched your search. Try a different keyword.</div>
+
+        <div class="tos-bar">
+            <div class="tos-info">
+                <h4>Terms of Service &amp; Support</h4>
+                <p>All members must also comply with the official Discord Terms of Service.</p>
+            </div>
+            <div class="tos-actions">
+                <a href="https://discord.com/terms" target="_blank" rel="noopener noreferrer" class="tos-btn">Discord TOS ↗</a>
+                <a href="https://discord.gg/YWaeyK7Wc" target="_blank" rel="noopener noreferrer" class="appeal-btn">Join Discord →</a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL HOW TO JOIN (JAVA & BEDROCK) -->
+    <div class="modal-backdrop" id="join-modal" onclick="closeJoinModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-top">
+                <h3 class="modal-title">How to Join ApexSMP</h3>
+                <button class="modal-close" onclick="closeJoinModal()" aria-label="Close">×</button>
+            </div>
+
+            <div class="join-card">
+                <div class="join-head">
+                    <span class="join-label">HOW TO JOIN: JAVA EDITION</span>
+                    <button class="mini-copy-btn" onclick="copyText('apexsmp.bbmc.fun', this)">Copy IP</button>
+                </div>
+                <ul class="join-steps">
+                    <li>Open your Minecraft Java Edition launcher and start the game.</li>
+                    <li>Head into the <strong>MULTIPLAYER</strong> menu from the main screen.</li>
+                    <li>Click the <strong>ADD SERVER</strong> button located near the bottom right.</li>
+                    <li>Set the server address field to: <strong>apexsmp.bbmc.fun</strong></li>
+                    <li>Hit <strong>DONE</strong>, choose the server from your list, and press join!</li>
+                </ul>
+            </div>
+
+            <div class="join-card bedrock">
+                <div class="join-head">
+                    <span class="join-label">HOW TO JOIN: BEDROCK EDITION</span>
+                    <div class="copy-actions">
+                        <button class="mini-copy-btn" onclick="copyText('apexsmp.bbmc.fun', this)">Copy IP</button>
+                        <button class="mini-copy-btn" onclick="copyText('25573', this)">Copy Port</button>
+                    </div>
+                </div>
+                <ul class="join-steps">
+                    <li>Open Minecraft on your Bedrock device (Console, Mobile, or Windows).</li>
+                    <li>Tap Play and switch over to the <strong>SERVERS</strong> tab at the top right.</li>
+                    <li>Scroll all the way to the bottom and click <strong>ADD SERVER</strong>.</li>
+                    <li>Enter <strong>apexsmp.bbmc.fun</strong> as the server address.</li>
+                    <li>Ensure the server port is set to the default: <strong>25573</strong></li>
+                    <li>Save the server, select it from your list, and connect!</li>
+                </ul>
+            </div>
+
+            <div class="join-support-note">
+                <p>Steps can differ slightly depending on your specific console or platform. If you run into any issues connecting, please open a support ticket right here in our Discord!</p>
+                <a href="https://discord.gg/YWaeyK7Wc" target="_blank" rel="noopener noreferrer" class="join-discord-btn">Open Discord →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <strong>© 2026 ApexSMP. All Rights Reserved.</strong>
+        ApexSMP is not affiliated with, endorsed by, or associated with Mojang AB or Microsoft Corporation. Minecraft is a trademark of Mojang AB.
+    </footer>
+
+    <script>
+        let currentCategory = 'all';
+
+        function setCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            filterRules();
+        }
+
+        function filterRules() {
+            const query = document.getElementById('rule-search').value.toLowerCase().trim();
+            const grid = document.getElementById('rules-grid');
+            const mcPanel = document.getElementById('panel-minecraft');
+            const dcPanel = document.getElementById('panel-discord');
+
+            grid.classList.toggle('single-col', currentCategory !== 'all');
+
+            let totalVisible = 0;
+
+            [
+                { panel: mcPanel, key: 'minecraft' },
+                { panel: dcPanel, key: 'discord' }
+            ].forEach(({ panel, key }) => {
+                if (currentCategory !== 'all' && currentCategory !== key) {
+                    panel.classList.add('hidden');
+                    return;
+                }
+
+                let panelVisible = 0;
+                panel.querySelectorAll('.rule-item').forEach(item => {
+                    const text = item.innerText.toLowerCase();
+                    const match = text.includes(query);
+                    item.classList.toggle('hidden', !match);
+                    if (match) {
+                        panelVisible++;
+                        totalVisible++;
+                    }
+                });
+
+                panel.classList.toggle('hidden', panelVisible === 0);
+            });
+
+            document.getElementById('no-results').classList.toggle('show', totalVisible === 0);
+        }
+
+        function openJoinModal() { document.getElementById('join-modal').classList.add('open'); }
+        function closeJoinModal() { document.getElementById('join-modal').classList.remove('open'); }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeJoinModal(); });
+
+        function copyText(text, btn) {
+            navigator.clipboard.writeText(text);
+            const original = btn.innerText;
+            btn.innerText = 'Copied!';
+            btn.style.backgroundColor = '#22c55e';
+            setTimeout(() => {
+                btn.innerText = original;
+                btn.style.backgroundColor = '';
+            }, 1800);
+        }
+    </script>
+
+</body>
+</html>

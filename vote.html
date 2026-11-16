@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="https://cdn.craftingstore.net/rPPmDHlLQ1/a5bd12907eca98c006d6e821e2c1163b/pure8rccxzledla8lbgk.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexSMP | Vote for Rewards</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #181a26;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-wallpaper {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, rgba(24, 26, 38, 0.52) 0%, rgba(24, 26, 38, 0.86) 55%, #181a26 100%),
+                url('https://i.postimg.cc/tYBrw1Hp/background.png') center -100px / cover no-repeat;
+        }
+
+        nav, .hero-header, .main-container, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-mini-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            padding: 18px 20px 6px;
+        }
+        .top-mini-nav a, .top-mini-nav button {
+            background: none;
+            border: none;
+            color: #cfd4e6;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .top-mini-nav a:hover, .top-mini-nav button:hover, .top-mini-nav a.active {
+            color: #ffffff;
+        }
+
+        .hero-header {
+            width: 100%;
+            margin: 6px auto 24px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-center-logo {
+            display: block;
+            transition: transform 0.25s ease;
+        }
+        .hero-center-logo:hover {
+            transform: scale(1.05);
+        }
+        .hero-center-logo img {
+            height: 112px;
+            width: auto;
+            display: block;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto 44px;
+            padding: 0 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            flex: 1;
+        }
+
+        .page-banner {
+            display: flex;
+            align-items: stretch;
+            background-color: #202333;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
+            min-height: 86px;
+        }
+        @media (max-width: 760px) {
+            .page-banner {
+                flex-direction: column;
+            }
+        }
+        .banner-info {
+            flex: 1;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .banner-badge-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #ef4444 0%, #991b1b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .banner-info h1 {
+            font-size: 20px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+        .banner-info p {
+            font-size: 14px;
+            color: #9ba1b8;
+        }
+
+        .banner-back-seg {
+            background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px 36px 16px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            clip-path: polygon(22px 0, 100% 0, 100% 100%, 0 100%);
+            min-width: 230px;
+            transition: filter 0.2s ease;
+        }
+        .banner-back-seg:hover {
+            filter: brightness(1.1);
+        }
+        @media (max-width: 760px) {
+            .banner-back-seg {
+                clip-path: none;
+                padding: 14px 20px;
+            }
+        }
+        .seg-small {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #fecaca;
+        }
+        .seg-big {
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 0.4px;
+        }
+
+        .bedrock-notice {
+            background-color: #202333;
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-left: 4px solid #f59e0b;
+            border-radius: 12px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+        }
+        .bedrock-notice strong {
+            color: #fbbf24;
+            font-size: 14.5px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .bedrock-notice p {
+            font-size: 13.5px;
+            color: #cfd4e6;
+        }
+        .dot-inline {
+            display: inline;
+            font-weight: 900;
+            color: #fbbf24;
+            white-space: nowrap;
+        }
+        .bedrock-example {
+            background-color: #181a26;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #fbbf24;
+            white-space: nowrap;
+        }
+
+        .vote-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+        @media (max-width: 860px) {
+            .vote-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .vote-link-card {
+            background-color: #202333;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 30px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 26px;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+        .vote-link-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(239, 68, 68, 0.45);
+        }
+
+        .vote-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .vote-number {
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            padding: 5px 13px;
+            border-radius: 50px;
+            background-color: rgba(239, 68, 68, 0.16);
+            color: #f87171;
+        }
+        .vote-cooldown {
+            font-size: 12px;
+            font-weight: 700;
+            color: #9ba1b8;
+        }
+
+        .vote-card-mid h2 {
+            font-size: 22px;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+        .vote-card-mid p {
+            font-size: 14px;
+            color: #9ba1b8;
+        }
+
+        .vote-action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14.5px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: filter 0.2s ease, transform 0.2s ease;
+        }
+        .vote-action-btn:hover {
+            filter: brightness(1.1);
+        }
+        .vote-action-btn.voted {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        /* MODAL HOW TO JOIN */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background-color: rgba(11, 13, 20, 0.8);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .modal-backdrop.open { display: flex; }
+        .modal-box {
+            background-color: #202333;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            max-width: 580px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 26px 28px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+            animation: popIn 0.2s ease;
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.95) translateY(8px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .modal-title { font-size: 21px; font-weight: 900; color: #ffffff; }
+        .modal-close {
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            color: #cfd4e6;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            font-size: 19px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .modal-close:hover { background-color: #ef4444; color: #ffffff; }
+        .join-card {
+            background-color: #181a26;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            border-left: 4px solid #00b4f0;
+        }
+        .join-card.bedrock { border-left-color: #f59e0b; }
+        .join-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .join-label {
+            font-size: 13px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #00b4f0;
+        }
+        .join-card.bedrock .join-label { color: #fbbf24; }
+        .copy-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .mini-copy-btn {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 7px;
+            font-size: 11.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .mini-copy-btn:hover { background-color: #0096c7; }
+        .join-steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .join-steps li {
+            font-size: 13.5px;
+            color: #cfd4e6;
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.45;
+        }
+        .join-steps li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #00b4f0;
+            font-weight: 900;
+        }
+        .join-card.bedrock .join-steps li::before { color: #fbbf24; }
+        .join-steps strong { color: #ffffff; }
+        .join-support-note {
+            background-color: rgba(88, 101, 242, 0.12);
+            border: 1px solid rgba(88, 101, 242, 0.28);
+            border-radius: 11px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .join-support-note p {
+            font-size: 12.5px;
+            color: #cfd4e6;
+            flex: 1;
+            min-width: 220px;
+        }
+        .join-discord-btn {
+            background-color: #5865F2;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 800;
+            white-space: nowrap;
+            transition: filter 0.2s ease;
+        }
+        .join-discord-btn:hover { filter: brightness(1.12); }
+
+        footer {
+            width: 100%;
+            padding: 16px 28px 28px;
+            text-align: center;
+            color: #7c8299;
+            font-size: 12px;
+        }
+        footer strong {
+            color: #ffffff;
+            font-size: 13px;
+            display: block;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-wallpaper"></div>
+
+    <nav class="top-mini-nav">
+        <a href="https://storeapex.craftingstore.net/" target="_blank" rel="noopener noreferrer">Store</a>
+        <a href="rules.html">Rules</a>
+        <a href="vote.html" class="active">Vote</a>
+        <button onclick="openJoinModal()">How to Join</button>
+    </nav>
+
+    <header class="hero-header">
+        <a href="index.html" class="hero-center-logo" title="Back to Home">
+            <img src="https://cdn.craftingstore.net/rPPmDHlLQ1/a5bd12907eca98c006d6e821e2c1163b/pure8rccxzledla8lbgk.png" alt="ApexSMP">
+        </a>
+    </header>
+
+    <main class="main-container">
+
+        <div class="page-banner">
+            <div class="banner-info">
+                <div class="banner-badge-icon">★</div>
+                <div>
+                    <h1>Daily Vote Links</h1>
+                    <p>Vote on all 3 websites every 24 hours to receive free in-game rewards!</p>
+                </div>
+            </div>
+
+            <a href="index.html" class="banner-back-seg">
+                <span class="seg-small">Return to Hub</span>
+                <span class="seg-big">← BACK HOME</span>
+            </a>
+        </div>
+
+        <div class="bedrock-notice">
+            <div>
+                <strong>Playing on Bedrock Edition?</strong>
+                <p>Add a dot <span class="dot-inline">(.)</span> right before your Minecraft username so your vote rewards are delivered automatically.</p>
+            </div>
+            <div class="bedrock-example">Example: .Steve123</div>
+        </div>
+
+        <section class="vote-grid">
+            <div class="vote-link-card">
+                <div class="vote-card-top">
+                    <span class="vote-number">Vote Site #1</span>
+                    <span class="vote-cooldown">Every 24h</span>
+                </div>
+                <div class="vote-card-mid">
+                    <h2>Minecraft Server Lists</h2>
+                    <p>Support ApexSMP and receive instant in-game vote rewards.</p>
+                </div>
+                <a href="https://www.minecraft-server-lists.com/apexsmp-2" target="_blank" rel="noopener noreferrer" class="vote-action-btn" onclick="markVoted(this)">
+                    <span>Vote Now</span>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <div class="vote-link-card">
+                <div class="vote-card-top">
+                    <span class="vote-number">Vote Site #2</span>
+                    <span class="vote-cooldown">Every 24h</span>
+                </div>
+                <div class="vote-card-mid">
+                    <h2>MineList</h2>
+                    <p>Cast your daily vote and climb the monthly top voters leaderboard.</p>
+                </div>
+                <a href="https://minelist.net/server/5358" target="_blank" rel="noopener noreferrer" class="vote-action-btn" onclick="markVoted(this)">
+                    <span>Vote Now</span>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <div class="vote-link-card">
+                <div class="vote-card-top">
+                    <span class="vote-number">Vote Site #3</span>
+                    <span class="vote-cooldown">Every 24h</span>
+                </div>
+                <div class="vote-card-mid">
+                    <h2>MinecraftServers.org</h2>
+                    <p>Complete your 3/3 daily streak for extra bonus rewards.</p>
+                </div>
+                <a href="https://minecraftservers.org/server/691634" target="_blank" rel="noopener noreferrer" class="vote-action-btn" onclick="markVoted(this)">
+                    <span>Vote Now</span>
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL HOW TO JOIN (JAVA & BEDROCK) -->
+    <div class="modal-backdrop" id="join-modal" onclick="closeJoinModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-top">
+                <h3 class="modal-title">How to Join ApexSMP</h3>
+                <button class="modal-close" onclick="closeJoinModal()" aria-label="Close">×</button>
+            </div>
+
+            <div class="join-card">
+                <div class="join-head">
+                    <span class="join-label">HOW TO JOIN: JAVA EDITION</span>
+                    <button class="mini-copy-btn" onclick="copyText('apexsmp.bbmc.fun', this)">Copy IP</button>
+                </div>
+                <ul class="join-steps">
+                    <li>Open your Minecraft Java Edition launcher and start the game.</li>
+                    <li>Head into the <strong>MULTIPLAYER</strong> menu from the main screen.</li>
+                    <li>Click the <strong>ADD SERVER</strong> button located near the bottom right.</li>
+                    <li>Set the server address field to: <strong>apexsmp.bbmc.fun</strong></li>
+                    <li>Hit <strong>DONE</strong>, choose the server from your list, and press join!</li>
+                </ul>
+            </div>
+
+            <div class="join-card bedrock">
+                <div class="join-head">
+                    <span class="join-label">HOW TO JOIN: BEDROCK EDITION</span>
+                    <div class="copy-actions">
+                        <button class="mini-copy-btn" onclick="copyText('apexsmp.bbmc.fun', this)">Copy IP</button>
+                        <button class="mini-copy-btn" onclick="copyText('25573', this)">Copy Port</button>
+                    </div>
+                </div>
+                <ul class="join-steps">
+                    <li>Open Minecraft on your Bedrock device (Console, Mobile, or Windows).</li>
+                    <li>Tap Play and switch over to the <strong>SERVERS</strong> tab at the top right.</li>
+                    <li>Scroll all the way to the bottom and click <strong>ADD SERVER</strong>.</li>
+                    <li>Enter <strong>apexsmp.bbmc.fun</strong> as the server address.</li>
+                    <li>Ensure the server port is set to the default: <strong>25573</strong></li>
+                    <li>Save the server, select it from your list, and connect!</li>
+                </ul>
+            </div>
+
+            <div class="join-support-note">
+                <p>Steps can differ slightly depending on your specific console or platform. If you run into any issues connecting, please open a support ticket right here in our Discord!</p>
+                <a href="https://discord.gg/YWaeyK7Wc" target="_blank" rel="noopener noreferrer" class="join-discord-btn">Open Discord →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <strong>© 2026 ApexSMP. All Rights Reserved.</strong>
+        ApexSMP is not affiliated with, endorsed by, or associated with Mojang AB or Microsoft Corporation. Minecraft is a trademark of Mojang AB.
+    </footer>
+
+    <script>
+        function markVoted(btn) {
+            btn.classList.add('voted');
+            btn.innerHTML = '<span>Opened ✓</span>';
+        }
+        function openJoinModal() { document.getElementById('join-modal').classList.add('open'); }
+        function closeJoinModal() { document.getElementById('join-modal').classList.remove('open'); }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeJoinModal(); });
+
+        function copyText(text, btn) {
+            navigator.clipboard.writeText(text);
+            const original = btn.innerText;
+            btn.innerText = 'Copied!';
+            btn.style.backgroundColor = '#22c55e';
+            setTimeout(() => {
+                btn.innerText = original;
+                btn.style.backgroundColor = '';
+            }, 1800);
+        }
+    </script>
+
+</body>
+</html>

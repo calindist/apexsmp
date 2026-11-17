@@ -40,6 +40,7 @@
             align-items: center;
             gap: 32px;
             padding: 18px 20px 6px;
+            flex-wrap: wrap;
         }
         .top-mini-nav a, .top-mini-nav button {
             background: none;
@@ -169,14 +170,14 @@
             color: #ffffff;
         }
 
-        /* BENTO GRID */
+        /* BENTO GRID ACTUALIZAT (STORE IN STANGA + 3 CARDURI EGALE IN DREAPTA) */
         .center-bento {
             width: 100%;
             display: grid;
             grid-template-columns: 1.08fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 22px;
-            min-height: 510px;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 20px;
+            min-height: 540px;
         }
         @media (max-width: 740px) {
             .center-bento {
@@ -190,7 +191,7 @@
             position: relative;
             overflow: hidden;
             border-radius: 14px;
-            padding: 34px 34px;
+            padding: 26px 32px;
             text-decoration: none;
             color: #ffffff;
             display: flex;
@@ -220,7 +221,7 @@
         }
 
         .bento-card.store-tall {
-            grid-row: span 2;
+            grid-row: span 3;
             background: linear-gradient(155deg, #0096c7 0%, #023e8a 100%);
             padding: 36px 38px;
         }
@@ -244,8 +245,8 @@
         .store-art {
             width: auto;
             height: auto;
-            max-width: 215px;
-            max-height: 215px;
+            max-width: 225px;
+            max-height: 225px;
             object-fit: contain;
             image-rendering: -webkit-optimize-contrast;
             filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.35));
@@ -269,6 +270,13 @@
             box-shadow: 0 18px 40px rgba(245, 158, 11, 0.4);
         }
 
+        .bento-card.apps-card {
+            background: linear-gradient(145deg, #7c3aed 0%, #4c1d95 100%);
+        }
+        .bento-card.apps-card:hover {
+            box-shadow: 0 18px 40px rgba(124, 58, 237, 0.42);
+        }
+
         .card-top-row {
             display: flex;
             justify-content: space-between;
@@ -277,18 +285,18 @@
             z-index: 2;
         }
         .card-pill {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.7px;
-            padding: 6px 15px;
+            padding: 5px 14px;
             border-radius: 50px;
             background-color: rgba(255, 255, 255, 0.22);
             color: #ffffff;
         }
 
         .card-arrow {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: #ffffff;
             transition: transform 0.25s ease;
@@ -302,20 +310,24 @@
             z-index: 2;
         }
         .card-bottom h2 {
-            font-size: 30px;
+            font-size: 26px;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.4px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             color: #ffffff;
         }
         .bento-card.store-tall .card-bottom h2 {
             font-size: 36px;
+            margin-bottom: 4px;
         }
         .card-bottom p {
-            font-size: 15px;
+            font-size: 14px;
             color: rgba(255, 255, 255, 0.92);
             font-weight: 600;
+        }
+        .bento-card.store-tall .card-bottom p {
+            font-size: 15px;
         }
 
         /* BARA RETELE SOCIALE JOS */
@@ -552,6 +564,7 @@
         <a href="https://storeapex.craftingstore.net/" target="_blank" rel="noopener noreferrer">Store</a>
         <a href="rules.html">Rules</a>
         <a href="vote.html">Vote</a>
+        <a href="applications.html">Applications</a>
         <button onclick="openJoinModal()">How to Join</button>
     </nav>
 
@@ -614,6 +627,17 @@
                 <div class="card-bottom">
                     <h2>Server Rules</h2>
                     <p>Click to view server policies</p>
+                </div>
+            </a>
+
+            <a href="applications.html" class="bento-card apps-card">
+                <div class="card-top-row">
+                    <span class="card-pill">Join The Team</span>
+                    <span class="card-arrow">→</span>
+                </div>
+                <div class="card-bottom">
+                    <h2>Applications</h2>
+                    <p>Leadership roles &amp; Creator Program</p>
                 </div>
             </a>
         </section>

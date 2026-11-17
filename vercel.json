@@ -1,4 +1,25 @@
-
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/discord",
+      "destination": "https://discord.gg/YWaeyK7Wc",
+      "permanent": false
+    },
+    {
+      "source": "/store",
+      "destination": "https://storeapex.craftingstore.net/",
+      "permanent": false
+    },
+    {
+      "source": "/tiktok",
+      "destination": "https://www.tiktok.com/@official_apexsmp",
+      "permanent": false
+    },
+    {
+      "source": "/youtube",
+      "destination": "https://www.youtube.com/@ApexSMPServer",
+      "permanent": false
+    }
+  ]
 }

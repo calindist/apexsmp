@@ -38,6 +38,7 @@
             align-items: center;
             gap: 32px;
             padding: 18px 20px 6px;
+            flex-wrap: wrap;
         }
         .top-mini-nav a, .top-mini-nav button {
             background: none;
@@ -590,6 +591,7 @@
         <a href="https://storeapex.craftingstore.net/" target="_blank" rel="noopener noreferrer">Store</a>
         <a href="rules.html" class="active">Rules</a>
         <a href="vote.html">Vote</a>
+        <a href="applications.html">Applications</a>
         <button onclick="openJoinModal()">How to Join</button>
     </nav>
 
@@ -762,17 +764,14 @@
         }
 
         function filterRules() {
-            const query = document.getElementById('rule-search').value.toLowerCase().trim();
-            const grid = document.getElementById('rules-grid');
+            const query = document.getElementById('rule-search').value.trim().toLowerCase();
             const mcPanel = document.getElementById('panel-minecraft');
             const dcPanel = document.getElementById('panel-discord');
+            const grid = document.getElementById('rules-grid');
             const noResults = document.getElementById('no-results');
 
-            const showMc = currentCategory === 'all' || currentCategory === 'minecraft';
-            const showDc = currentCategory === 'all' || currentCategory === 'discord';
-
-            mcPanel.classList.toggle('hidden', !showMc);
-            dcPanel.classList.toggle('hidden', !showDc);
+            mcPanel.classList.toggle('hidden', currentCategory === 'discord');
+            dcPanel.classList.toggle('hidden', currentCategory === 'minecraft');
             grid.classList.toggle('single-col', currentCategory !== 'all');
 
             let totalVisible = 0;
@@ -780,18 +779,16 @@
             [mcPanel, dcPanel].forEach(panel => {
                 if (panel.classList.contains('hidden')) return;
                 let panelVisible = 0;
-
                 panel.querySelectorAll('.rule-item').forEach(item => {
                     const text = item.innerText.toLowerCase();
-                    const matches = !query || text.includes(query);
-                    item.classList.toggle('hidden', !matches);
-                    if (matches) {
+                    const match = !query || text.includes(query);
+                    item.classList.toggle('hidden', !match);
+                    if (match) {
                         panelVisible++;
                         totalVisible++;
                     }
                 });
-
-                if (panelVisible === 0 && query) {
+                if (query && panelVisible === 0) {
                     panel.classList.add('hidden');
                 }
             });

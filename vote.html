@@ -38,6 +38,7 @@
             align-items: center;
             gap: 32px;
             padding: 18px 20px 6px;
+            flex-wrap: wrap;
         }
         .top-mini-nav a, .top-mini-nav button {
             background: none;
@@ -457,6 +458,7 @@
         <a href="https://storeapex.craftingstore.net/" target="_blank" rel="noopener noreferrer">Store</a>
         <a href="rules.html">Rules</a>
         <a href="vote.html" class="active">Vote</a>
+        <a href="applications.html">Applications</a>
         <button onclick="openJoinModal()">How to Join</button>
     </nav>
 
@@ -574,4 +576,45 @@
                     <li>Open Minecraft on your Bedrock device (Console, Mobile, or Windows).</li>
                     <li>Tap Play and switch over to the <strong>SERVERS</strong> tab at the top right.</li>
                     <li>Scroll all the way to the bottom and click <strong>ADD SERVER</strong>.</li>
-                    <li>Enter <strong>apexsmp.bbmc.
+                    <li>Enter <strong>apexsmp.bbmc.fun</strong> as the server address.</li>
+                    <li>Ensure the server port is set to the default: <strong>25573</strong></li>
+                    <li>Save the server, select it from your list, and connect!</li>
+                </ul>
+            </div>
+
+            <div class="join-support-note">
+                <p>Steps can differ slightly depending on your specific console or platform. If you run into any issues connecting, please open a support ticket right here in our Discord!</p>
+                <a href="https://discord.gg/YWaeyK7Wc" target="_blank" rel="noopener noreferrer" class="join-discord-btn">Open Discord →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <strong>© 2026 ApexSMP. All Rights Reserved.</strong>
+        ApexSMP is not affiliated with, endorsed by, or associated with Mojang AB or Microsoft Corporation. Minecraft is a trademark of Mojang AB.
+    </footer>
+
+    <script>
+        function markVoted(btn) {
+            btn.classList.add('voted');
+            btn.innerHTML = '<span>Voted!</span><span>✓</span>';
+        }
+
+        function openJoinModal() { document.getElementById('join-modal').classList.add('open'); }
+        function closeJoinModal() { document.getElementById('join-modal').classList.remove('open'); }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeJoinModal(); });
+
+        function copyText(text, btn) {
+            navigator.clipboard.writeText(text);
+            const original = btn.innerText;
+            btn.innerText = 'Copied!';
+            btn.style.backgroundColor = '#22c55e';
+            setTimeout(() => {
+                btn.innerText = original;
+                btn.style.backgroundColor = '';
+            }, 1800);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/png" href="https://cdn.craftingstore.net/rPPmDHlLQ1/a5bd12907eca98c006d6e821e2c1163b/pure8rccxzledla8lbgk.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ApexSMP | Vote for Rewards</title>
+    <link rel="icon" type="image/png" href="https://cdn.craftingstore.net/rPPmDHlLQ1/a5bd12907eca98c006d6e821e2c1163b/pure8rccxzledla8lbgk.png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -24,9 +24,7 @@
             inset: 0;
             z-index: 0;
             pointer-events: none;
-            background:
-                linear-gradient(180deg, rgba(24, 26, 38, 0.52) 0%, rgba(24, 26, 38, 0.86) 55%, #181a26 100%),
-                url('https://i.postimg.cc/tYBrw1Hp/background.png') center -100px / cover no-repeat;
+            background: url('https://i.postimg.cc/LXTrwrWn/background1.png') center center / cover no-repeat;
         }
 
         nav, .hero-header, .main-container, footer {
@@ -576,44 +574,4 @@
                     <li>Open Minecraft on your Bedrock device (Console, Mobile, or Windows).</li>
                     <li>Tap Play and switch over to the <strong>SERVERS</strong> tab at the top right.</li>
                     <li>Scroll all the way to the bottom and click <strong>ADD SERVER</strong>.</li>
-                    <li>Enter <strong>apexsmp.bbmc.fun</strong> as the server address.</li>
-                    <li>Ensure the server port is set to the default: <strong>25573</strong></li>
-                    <li>Save the server, select it from your list, and connect!</li>
-                </ul>
-            </div>
-
-            <div class="join-support-note">
-                <p>Steps can differ slightly depending on your specific console or platform. If you run into any issues connecting, please open a support ticket right here in our Discord!</p>
-                <a href="https://discord.gg/YWaeyK7Wc" target="_blank" rel="noopener noreferrer" class="join-discord-btn">Open Discord →</a>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <strong>© 2026 ApexSMP. All Rights Reserved.</strong>
-        ApexSMP is not affiliated with, endorsed by, or associated with Mojang AB or Microsoft Corporation. Minecraft is a trademark of Mojang AB.
-    </footer>
-
-    <script>
-        function markVoted(btn) {
-            btn.classList.add('voted');
-            btn.innerHTML = '<span>Opened ✓</span>';
-        }
-        function openJoinModal() { document.getElementById('join-modal').classList.add('open'); }
-        function closeJoinModal() { document.getElementById('join-modal').classList.remove('open'); }
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeJoinModal(); });
-
-        function copyText(text, btn) {
-            navigator.clipboard.writeText(text);
-            const original = btn.innerText;
-            btn.innerText = 'Copied!';
-            btn.style.backgroundColor = '#22c55e';
-            setTimeout(() => {
-                btn.innerText = original;
-                btn.style.backgroundColor = '';
-            }, 1800);
-        }
-    </script>
-
-</body>
-</html>
+                    <li>Enter <strong>apexsmp.bbmc.

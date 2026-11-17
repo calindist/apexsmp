@@ -24,9 +24,7 @@
             inset: 0;
             z-index: 0;
             pointer-events: none;
-            background:
-                linear-gradient(180deg, rgba(24, 26, 38, 0.52) 0%, rgba(24, 26, 38, 0.86) 55%, #181a26 100%),
-                url('https://i.postimg.cc/tYBrw1Hp/background.png') center -100px / cover no-repeat;
+            background: url('https://i.postimg.cc/LXTrwrWn/background1.png') center center / cover no-repeat;
         }
 
         nav, .hero-header, .main-container, footer {
@@ -768,35 +766,37 @@
             const grid = document.getElementById('rules-grid');
             const mcPanel = document.getElementById('panel-minecraft');
             const dcPanel = document.getElementById('panel-discord');
+            const noResults = document.getElementById('no-results');
 
+            const showMc = currentCategory === 'all' || currentCategory === 'minecraft';
+            const showDc = currentCategory === 'all' || currentCategory === 'discord';
+
+            mcPanel.classList.toggle('hidden', !showMc);
+            dcPanel.classList.toggle('hidden', !showDc);
             grid.classList.toggle('single-col', currentCategory !== 'all');
 
             let totalVisible = 0;
 
-            [
-                { panel: mcPanel, key: 'minecraft' },
-                { panel: dcPanel, key: 'discord' }
-            ].forEach(({ panel, key }) => {
-                if (currentCategory !== 'all' && currentCategory !== key) {
-                    panel.classList.add('hidden');
-                    return;
-                }
-
+            [mcPanel, dcPanel].forEach(panel => {
+                if (panel.classList.contains('hidden')) return;
                 let panelVisible = 0;
+
                 panel.querySelectorAll('.rule-item').forEach(item => {
                     const text = item.innerText.toLowerCase();
-                    const match = text.includes(query);
-                    item.classList.toggle('hidden', !match);
-                    if (match) {
+                    const matches = !query || text.includes(query);
+                    item.classList.toggle('hidden', !matches);
+                    if (matches) {
                         panelVisible++;
                         totalVisible++;
                     }
                 });
 
-                panel.classList.toggle('hidden', panelVisible === 0);
+                if (panelVisible === 0 && query) {
+                    panel.classList.add('hidden');
+                }
             });
 
-            document.getElementById('no-results').classList.toggle('show', totalVisible === 0);
+            noResults.classList.toggle('show', totalVisible === 0);
         }
 
         function openJoinModal() { document.getElementById('join-modal').classList.add('open'); }

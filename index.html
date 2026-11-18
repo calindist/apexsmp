@@ -4,15 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ApexSMP | Official Minecraft Server</title>
-    <meta name="description" content="Official website of ApexSMP. Java & Bedrock Crossplay Survival — explore ranks, vote daily, and join our community!">
-    <meta name="theme-color" content="#0096c7">
-
-    <!-- Open Graph / Discord Embed -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://apexsmp.vercel.app/">
-    <meta property="og:title" content="ApexSMP | Official Minecraft Server">
-    <meta property="og:description" content="Official website of ApexSMP. Join at apexsmp.bbmc.fun (Bedrock Port: 25573)!">
-
     <link rel="icon" type="image/png" href="https://cdn.craftingstore.net/rPPmDHlLQ1/a5bd12907eca98c006d6e821e2c1163b/pure8rccxzledla8lbgk.png">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -571,14 +562,14 @@
 
     <nav class="top-mini-nav">
         <a href="https://storeapex.craftingstore.net/" target="_blank" rel="noopener noreferrer">Store</a>
-        <a href="/rules">Rules</a>
-        <a href="/vote">Vote</a>
-        <a href="/applications">Applications</a>
+        <a href="rules.html">Rules</a>
+        <a href="vote.html">Vote</a>
+        <a href="applications.html">Applications</a>
         <button onclick="openJoinModal()">How to Join</button>
     </nav>
 
     <header class="hero-header">
-        <a href="/" class="hero-center-logo">
+        <a href="index.html" class="hero-center-logo">
             <img src="https://cdn.craftingstore.net/rPPmDHlLQ1/a5bd12907eca98c006d6e821e2c1163b/pure8rccxzledla8lbgk.png" alt="ApexSMP">
         </a>
     </header>
@@ -617,7 +608,7 @@
                 </div>
             </a>
 
-            <a href="/vote" class="bento-card vote-card">
+            <a href="vote.html" class="bento-card vote-card">
                 <div class="card-top-row">
                     <span class="card-pill">Free Rewards</span>
                     <span class="card-arrow">→</span>
@@ -628,7 +619,7 @@
                 </div>
             </a>
 
-            <a href="/rules" class="bento-card rules-card">
+            <a href="rules.html" class="bento-card rules-card">
                 <div class="card-top-row">
                     <span class="card-pill">Guidelines</span>
                     <span class="card-arrow">→</span>
@@ -639,7 +630,7 @@
                 </div>
             </a>
 
-            <a href="/applications" class="bento-card apps-card">
+            <a href="applications.html" class="bento-card apps-card">
                 <div class="card-top-row">
                     <span class="card-pill">Join The Team</span>
                     <span class="card-arrow">→</span>
@@ -760,22 +751,43 @@
             }, 2000);
         }
 
-        fetch('https://api.mcsrvstat.us/3/apexsmp.bbmc.fun')
-            .then(res => res.json())
-            .then(data => {
-                const statusEl = document.getElementById('seg-players');
-                if (data.online) {
+        async function fetchWithTimeout(url, ms = 4000) {
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), ms);
+            try {
+                const res = await fetch(url, { signal: controller.signal });
+                clearTimeout(id);
+                return await res.json();
+            } catch (e) {
+                clearTimeout(id);
+                return null;
+            }
+        }
+
+        async function updatePlayerCount() {
+            const statusEl = document.getElementById('seg-players');
+            const endpoints = [
+                'https://api.mcstatus.io/v2/status/java/apexsmp.bbmc.fun',
+                'https://api.mcstatus.io/v2/status/java/apexsmp.bbmc.fun:25573',
+                'https://api.mcsrvstat.us/3/apexsmp.bbmc.fun',
+                'https://api.mcsrvstat.us/3/apexsmp.bbmc.fun:25573'
+            ];
+
+            for (const url of endpoints) {
+                const data = await fetchWithTimeout(url);
+                if (data && data.online === true && data.players) {
                     cachedStatusText = `${data.players.online} ONLINE • CLICK TO COPY`;
                     statusEl.innerText = cachedStatusText;
-                } else {
-                    cachedStatusText = 'OFFLINE • CLICK TO COPY';
-                    statusEl.innerText = cachedStatusText;
+                    return;
                 }
-            })
-            .catch(() => {
-                cachedStatusText = 'CLICK TO COPY IP';
-                document.getElementById('seg-players').innerText = cachedStatusText;
-            });
+            }
+
+            cachedStatusText = 'OFFLINE • CLICK TO COPY';
+            statusEl.innerText = cachedStatusText;
+        }
+
+        updatePlayerCount();
+        setInterval(updatePlayerCount, 60000);
     </script>
 
 </body>

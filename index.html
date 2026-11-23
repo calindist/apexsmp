@@ -19,7 +19,6 @@
             position: relative;
         }
 
-        /* IMAGINEA DE BACKGROUND */
         .bg-wallpaper {
             position: fixed;
             inset: 0;
@@ -33,7 +32,6 @@
             z-index: 1;
         }
 
-        /* MINI NAV SUS IN CENTRU */
         .top-mini-nav {
             display: flex;
             justify-content: center;
@@ -58,7 +56,6 @@
             color: #ffffff;
         }
 
-        /* HERO HEADER: LOGO MARE CENTRAT */
         .hero-header {
             width: 100%;
             margin: 6px auto 24px;
@@ -80,7 +77,6 @@
             display: block;
         }
 
-        /* CONTAINER CENTRAL */
         .main-container {
             width: 100%;
             max-width: 1140px;
@@ -92,7 +88,6 @@
             flex: 1;
         }
 
-        /* BARA ORIZONTALA DE BUN VENIT + IP */
         .welcome-banner {
             display: flex;
             align-items: stretch;
@@ -170,7 +165,6 @@
             color: #ffffff;
         }
 
-        /* BENTO GRID ACTUALIZAT (STORE IN STANGA + 3 CARDURI EGALE IN DREAPTA) */
         .center-bento {
             width: 100%;
             display: grid;
@@ -211,6 +205,7 @@
             transform: skewX(-20deg);
             transition: left 0.55s ease;
             pointer-events: none;
+            z-index: 3;
         }
         .bento-card:hover::after {
             left: 140%;
@@ -254,6 +249,56 @@
         }
         .bento-card.store-tall:hover .store-art {
             transform: scale(1.06) translateY(-5px);
+        }
+
+        .side-art-box {
+            position: absolute;
+            right: 52px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+        .bento-card:hover .side-art-box {
+            transform: translateY(-54%) scale(1.08) rotate(-2deg);
+        }
+        .side-art-box img {
+            object-fit: contain;
+            filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+        }
+        .side-art-box img.art-key {
+            width: 112px;
+            height: 112px;
+        }
+        .side-art-box img.art-book {
+            width: 116px;
+            height: 116px;
+        }
+        .side-art-box img.art-crown {
+            width: 96px;
+            height: 96px;
+        }
+        @media (max-width: 480px) {
+            .side-art-box {
+                width: 88px;
+                height: 88px;
+                right: 22px;
+            }
+            .side-art-box img.art-key,
+            .side-art-box img.art-book {
+                width: 82px;
+                height: 82px;
+            }
+            .side-art-box img.art-crown {
+                width: 68px;
+                height: 68px;
+            }
         }
 
         .bento-card.vote-card {
@@ -308,6 +353,10 @@
         .card-bottom {
             position: relative;
             z-index: 2;
+            max-width: 65%;
+        }
+        .bento-card.store-tall .card-bottom {
+            max-width: 100%;
         }
         .card-bottom h2 {
             font-size: 26px;
@@ -330,7 +379,6 @@
             font-size: 15px;
         }
 
-        /* BARA RETELE SOCIALE JOS */
         .socials-bar {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -373,7 +421,6 @@
             border-color: #dc2626;
         }
 
-        /* MODAL HOW TO JOIN */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -540,7 +587,6 @@
             filter: brightness(1.12);
         }
 
-        /* FOOTER */
         footer {
             width: 100%;
             padding: 16px 28px 28px;
@@ -609,6 +655,9 @@
             </a>
 
             <a href="vote.html" class="bento-card vote-card">
+                <div class="side-art-box">
+                    <img src="https://i.postimg.cc/2LhxyN9h/648fba89-c83f-4bc7-8290-e5e0ed2ecd83.png" alt="Vote Key" class="art-key">
+                </div>
                 <div class="card-top-row">
                     <span class="card-pill">Free Rewards</span>
                     <span class="card-arrow">→</span>
@@ -620,6 +669,9 @@
             </a>
 
             <a href="rules.html" class="bento-card rules-card">
+                <div class="side-art-box">
+                    <img src="https://i.postimg.cc/jnPh2Y3y/d053af6a-e858-4dc1-a1b1-311e362038bb.png" alt="Server Rules" class="art-book">
+                </div>
                 <div class="card-top-row">
                     <span class="card-pill">Guidelines</span>
                     <span class="card-arrow">→</span>
@@ -631,6 +683,9 @@
             </a>
 
             <a href="applications.html" class="bento-card apps-card">
+                <div class="side-art-box">
+                    <img src="https://i.postimg.cc/rRx9s2ZG/8a68728d-90c8-414a-a0c9-ba9b36707f0c.png" alt="Applications" class="art-crown">
+                </div>
                 <div class="card-top-row">
                     <span class="card-pill">Join The Team</span>
                     <span class="card-arrow">→</span>
@@ -667,7 +722,6 @@
 
     </main>
 
-    <!-- MODAL HOW TO JOIN (JAVA & BEDROCK) -->
     <div class="modal-backdrop" id="join-modal" onclick="closeJoinModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <div class="modal-top">
